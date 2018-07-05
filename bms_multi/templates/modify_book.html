@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>修改书籍</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>修改书籍</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">书籍名称</label>
+            <input type="text" name="title" class="form-control" value="{{ book.title }}">
+        </div>
+        <div class="form-group">
+            <label for="">价格</label>
+            <input type="text" name="price" class="form-control" value="{{ book.price }}">
+        </div>
+        <div class="form-group">
+            <label for="">出版日期</label>
+            <input type="date" name="pub_date" class="form-control" value="{{ book.pub_date|date:"Y-m-d" }}">
+        </div>
+        <div class="form-group">
+            <label for="">出版社</label>
+            <select name="publish_id" id="" class="form-control">
+                {#遍历所有出版社#}
+                {% for p in publish_list %}
+                    {#判断当前书籍的出版社id等于出版社表的id时#}
+                    {% if book.publish_id == p.id %}
+                        {#添加选中状态selected="selected"#}
+                        {#由于表关系是通过id关联的，所以value值必须是id#}
+                        <option value="{{ p.id }}" selected="selected">{{ p.name }}</option>
+                    {% else %}
+                        <option value="{{ p.id }}">{{ p.name }}</option>
+                    {% endif %}
+
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">作者</label>
+            <ul class="list-group">
+                {% for author in author_list %}
+                    <li class="list-group-item">
+                        <div class="checkbox checkbox-success ">
+                            {#判断作者的名字在当前书籍作者列表中#}
+                            {% if author.name in the_author %}
+                                {#添加选中状态checked="checked"#}
+                                {#由于表关系是通过id关联的，所以value值必须是id#}
+                                <input class="styled" type="checkbox" checked="checked" name="author_id"
+                                       value="{{ author.id }}">
+                                <label class="checkbox-inline">{{ author.name }}</label>
+                            {% else %}
+                                <input class="styled" type="checkbox" name="author_id" value="{{ author.id }}">
+                                <label class="checkbox-inline">{{ author.name }}</label>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <input type="submit" id="submit" class="btn btn-default pull-right" value="修改">
+    </form>
+{#    <script>#}
+{#    $("#submit").click(function () {#}
+{#        #}
+{#    })#}
+{#    </script>#}
+
+{% endblock content %}
+

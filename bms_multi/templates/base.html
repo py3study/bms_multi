@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>title</title>
+    {% endblock title %}
+    {#bootstrap，版本为3.3.7#}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    {#美化复选框#}
+    <link rel="stylesheet" href="https://cdn.bootcss.com/awesome-bootstrap-checkbox/0.3.7/awesome-bootstrap-checkbox.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    {#jquery#}
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="http://mishengqiang.com/sweetalert/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="http://mishengqiang.com/sweetalert/css/sweetalert.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            width: 100%;
+            height: 60px;
+            background-color: #369;
+        }
+
+        .title {
+
+            line-height: 60px;
+            color: white;
+            font-weight: 100;
+            margin-left: 20px;
+            font-size: 20px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+{#          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">#}
+{#            <span class="sr-only">Toggle navigation</span>#}
+{#            <span class="icon-bar"></span>#}
+{#            <span class="icon-bar"></span>#}
+{#            <span class="icon-bar"></span>#}
+{#          </button>#}
+          <a class="navbar-brand" href="#">图书管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">{{ request.session.user }}</a></li>
+            <li><a href="#">{{ request.session.last_time|slice:":19" }}</a></li>
+            <li><a href="/logout/">注销</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading"><a href="javascript:void(0)">查看信息</a></div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="/books/">查看书籍</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/books/see_publish/">查看出版社</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/books/see_author/">查看作者</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading"><a href="javascript:void(0)">添加操作</a></div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="/books/add_book/">添加书籍</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/books/add_publish/">添加出版社</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/books/add_author/">添加作者</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-warning">
+                <div class="panel-heading"><a href="javascript:void(0)">管理操作</a></div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="/books/manage_book/">管理书籍</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/books/manage_publish/">管理出版社</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/books/manage_author/">管理作者</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+        {% csrf_token %}
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

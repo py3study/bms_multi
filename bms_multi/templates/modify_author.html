@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>修改作者</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>修改作者</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">姓名</label>
+            <input type="text" name="name" class="form-control" value="{{ author.name }}">
+        </div>
+        <div class="form-group">
+            <label for="">年龄</label>
+            <input type="text" name="age" class="form-control" value="{{ author.age }}">
+        </div>
+        <div class="form-group">
+            <label for="">女朋友</label>
+            <input type="text" name="gf" class="form-control" value="{{ author.ad.gf }}">
+        </div>
+        <div class="form-group">
+            <label for="">电话</label>
+            <input type="text" name="tel" class="form-control" value="{{ author.ad.tel }}">
+        </div>
+
+        <input type="submit" class="btn btn-default pull-right" value="修改">
+    </form>
+
+{% endblock content %}
+

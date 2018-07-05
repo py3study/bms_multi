@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>查看出版社</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>查看出版社</h3>
+    <table class="table table-hover table-striped ">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>出版社</th>
+            <th>邮箱地址</th>
+            <th>地址</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#遍历所有出版社#}
+        {% for publish in publish_list %}
+            <tr>
+                <td>{{ publish.id }}</td>
+                <td>{{ publish.name }}</td>
+                <td>{{ publish.email }}</td>
+                <td>{{ publish.addr }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock content %}

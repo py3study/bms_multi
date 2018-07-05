@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>查看书籍</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>查看书籍</h3>
+    <table class="table table-hover table-striped ">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>书籍名称</th>
+            <th>价格</th>
+            <th>出版日期</th>
+            <th>出版社</th>
+            <th>作者</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#遍历所有书籍#}
+        {% for book in book_list %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.pub_date|date:"Y-m-d" }}</td>
+                <td>{{ book.publish.name }}</td>
+                <td>
+                    {#判断作者是否为空#}
+                    {% if not book.authors.all %}
+                        无
+                    {% else %}
+                        {#遍历所有书籍相关的作者#}
+                        {% for j in book.authors.all %}
+                            {#使用forloop.last判断，如果如果是最后一个，不增加逗号#}
+                            {{ j.name }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock content %}
+

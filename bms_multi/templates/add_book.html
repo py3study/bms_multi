@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>添加书籍</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>添加书籍</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">书籍名称</label>
+            {#required表示内容不能为空#}
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="">价格</label>
+            <input type="text" name="price" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="">出版日期</label>
+            <input type="date" name="pub_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="">出版社</label>
+            <select name="publish_id" id="" class="form-control">
+                {#使用for循环遍历所有出版社#}
+                {% for p in publish_list %}
+                    {#由于表关系是通过id关联的，所以value值必须是id#}
+                    <option value="{{ p.id }}">{{ p.name }}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="">作者</label>
+            <ul class="list-group">
+                {#使用for循环遍历所有作者#}
+                {% for author in author_list %}
+                    <li class="list-group-item">
+                        <div class="checkbox checkbox-success ">
+                            {#由于表关系是通过id关联的，所以value值必须是id#}
+                            <input class="styled" type="checkbox" name="author_id" value="{{ author.id }}">
+                            <label class="checkbox-inline">
+                                {{ author.name }}
+                            </label>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <input type="submit" class="btn btn-success pull-right" value="添加">
+    </form>
+
+{% endblock content %}
+

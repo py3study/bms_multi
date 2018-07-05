@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>修改出版社</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>修改出版社</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">名称</label>
+            <input type="text" name="name" class="form-control" value="{{ publish.name }}">
+        </div>
+        <div class="form-group">
+            <label for="">邮箱</label>
+            <input type="text" name="email" class="form-control" value="{{ publish.email }}">
+        </div>
+        <div class="form-group">
+            <label for="">地址</label>
+            <input type="text" name="addr" class="form-control" value="{{ publish.addr }}">
+        </div>
+
+        <input type="submit" class="btn btn-default pull-right" value="修改">
+    </form>
+
+{% endblock content %}
+

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>查看作者</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>查看作者</h3>
+    <table class="table table-hover table-striped ">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>女朋友</th>
+            <th>电话</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#遍历所有作者#}
+        {% for author in author_list %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+                <td>{{ author.age }}</td>
+                <td>{{ author.ad.gf }}</td>
+                <td>{{ author.ad.tel }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock content %}

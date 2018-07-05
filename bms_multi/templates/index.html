@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>当当图书</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/heroic-features.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .navbar .nav > li > a:hover {
+            color: white;
+            background-color: #ED7A54;
+        }
+
+        /*新书上架*/
+        .rob {
+            color: #c30;
+            /*float: left;*/
+            overflow: hidden;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .price_r {
+            color: #aaa;
+            text-decoration: line-through;
+            /*float: left;*/
+            overflow: hidden;
+            margin-left: 2px;
+        }
+
+        /*登录和注册*/
+        .pull-right {
+            float: right !important;
+            line-height: 50px;
+        }
+
+        .login {
+
+        }
+
+        .reg {
+            margin-left: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">首页</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">图书排行榜</a>
+                </li>
+                <li>
+                    <a href="#">童书</a>
+                </li>
+                <li>
+                    <a href="#">教辅</a>
+                </li>
+                <li>
+                    <a href="#">小说</a>
+                </li>
+                <li>
+                    <a href="#">文学</a>
+                </li>
+                <li>
+                    <a href="#">青春文学</a>
+                </li>
+                <li>
+                    <a href="#">传记</a>
+                </li>
+                <li>
+                    <a href="#">成功励志</a>
+                </li>
+                <li>
+                    <a href="#">管理</a>
+                </li>
+                <li>
+                    <a href="#">历史</a>
+                </li>
+                <li>
+                    <a href="#">电子书</a>
+                </li>
+                <li>
+                    <a href="#">网络文学</a>
+                </li>
+            </ul>
+
+            <div class="pull-right">
+                <a href="/login/" class="login" target="_blank">登录</a>
+                <a href="/reg/" class="reg" target="_blank">注册</a>
+            </div>
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Jumbotron Header -->
+    <!--<header class="jumbotron hero-spacer">-->
+    <!--<h1>A Warm Welcome!</h1>-->
+    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>-->
+    <!--<p><a class="btn btn-primary btn-large">Call to action!</a>-->
+    <!--</p>-->
+    <!--</header>-->
+    <!--<img src="images/750-315-1529567210.jpg" alt="" width="100%">-->
+    <!--轮播图-->
+    <div id="carousel-example-generic" class="carousel slide banner" data-ride="carousel">
+        <!-- 圆点 -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- 图片区域 -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="/static/images/1.jpg" alt="" width="100%">
+            </div>
+            <div class="item">
+                <img src="/static/images/2.jpg" alt="" width="100%">
+            </div>
+            <div class="item">
+                <img src="/static/images/3.jpg" alt="" width="100%">
+            </div>
+        </div>
+
+        <!-- 左右控制箭头 -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left " aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <hr>
+
+    <!-- Title -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>新书上架</h3>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Page Features -->
+    <div class="row text-center">
+        {#        {{ book_list }}#}
+        {% for book in book_list %}
+            {#                {{ book.title }}#}
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="/static/images/dangdang.png" alt="">
+                    <div class="caption">
+                        <h3>{{ book.title }}</h3>
+
+
+                        <p>
+                            {#判断作者是否为空#}
+                            {% if not book.authors.all %}
+                                无
+                            {% else %}
+                                {#遍历所有书籍相关的作者#}
+                                {% for j in book.authors.all %}
+                                    {#使用forloop.last判断，如果如果是最后一个，不增加逗号#}
+                                    {{ j.name }}{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </p>
+                        <p>{{ book.publish.name }}</p>
+                        <p>{{ book.pub_date|date:"Y-m-d" }}</p>
+                        <p>
+                            <span class="rob"><span class="sign">¥</span><span
+                                    class="num">{{ book.price }}</span></span>
+                            {#                            <span class="price_r"><span class="sign">¥</span><span class="num">42</span><span class="tail">.00</span></span>#}
+                        </p>
+                        <p>
+                            <a href="#" class="btn btn-primary">现在购买!</a> <a href="#" class="btn btn-default">更多信息</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+    <!-- /.row -->
+
+    {#        <div class="row">#}
+    {#            <div class="col-lg-12">#}
+    {#                <h3>独家特供</h3>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="row text-center">#}
+    {##}
+    {#            <div class="col-md-3 col-sm-6 hero-feature">#}
+    {#                <div class="thumbnail">#}
+    {#                    <img src="/static/images/25268159-1_l_6.jpg" alt="">#}
+    {#                    <div class="caption">#}
+    {#                        <h3>那不勒斯的萤火</h3>#}
+    {#                        <p>马西米利亚诺· 威尔</p>#}
+    {#                        <p>#}
+    {#                            <span class="rob"><span class="sign">¥</span><span class="num">42</span><span class="tail">.00</span></span>#}
+    {#                            <span class="price_r"><span class="sign">¥</span><span class="num">42</span><span class="tail">.00</span></span>#}
+    {#                        </p>#}
+    {#                        <p>#}
+    {#                            <a href="#" class="btn btn-primary">现在购买!</a> <a href="#" class="btn btn-default">更多信息</a>#}
+    {#                        </p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {##}
+    {#            <div class="col-md-3 col-sm-6 hero-feature">#}
+    {#                <div class="thumbnail">#}
+    {#                    <img src="/static/images/25263653-1_l_3.jpg" alt="">#}
+    {#                    <div class="caption">#}
+    {#                        <h3>天选之子：卡卡传</h3>#}
+    {#                        <p>《天下足球》著</p>#}
+    {#                        <p>#}
+    {#                            <span class="rob"><span class="sign">¥</span><span class="num">133</span></span>#}
+    {#                            <span class="price_r"><span class="sign">¥</span><span class="num">188</span></span>#}
+    {#                        </p>#}
+    {#                        <p>#}
+    {#                            <a href="#" class="btn btn-primary">现在购买!</a> <a href="#" class="btn btn-default">更多信息</a>#}
+    {#                        </p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {##}
+    {#            <div class="col-md-3 col-sm-6 hero-feature">#}
+    {#                <div class="thumbnail">#}
+    {#                    <img src="/static/images/25263044-1_l_6.jpg" alt="">#}
+    {#                    <div class="caption">#}
+    {#                        <h3>复旦名师陈果：好的</h3>#}
+    {#                        <p>陈果　著；读客文化 </p>#}
+    {#                        <p>#}
+    {#                            <span class="rob"><span class="sign">¥</span><span class="num">133</span></span>#}
+    {#                            <span class="price_r"><span class="sign">¥</span><span class="num">188</span></span>#}
+    {#                        </p>#}
+    {#                        <p>#}
+    {#                            <a href="#" class="btn btn-primary">现在购买!</a> <a href="#" class="btn btn-default">更多信息</a>#}
+    {#                        </p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {##}
+    {#            <div class="col-md-3 col-sm-6 hero-feature">#}
+    {#                <div class="thumbnail">#}
+    {#                    <img src="/static/images/1900981830-1_l_2.jpg" alt="">#}
+    {#                    <div class="caption">#}
+    {#                        <h3>丹·布朗作品：本源</h3>#}
+    {#                        <p>（美）丹·布朗</p>#}
+    {#                        <p>#}
+    {#                            <span class="rob"><span class="sign">¥</span><span class="num">19</span></span>#}
+    {#                            <span class="price_r"><span class="sign">¥</span><span class="num">20</span></span>#}
+    {#                        </p>#}
+    {#                        <p>#}
+    {#                            <a href="#" class="btn btn-primary">现在购买!</a> <a href="#" class="btn btn-default">更多信息</a>#}
+    {#                        </p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {##}
+    {#        </div>#}
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; 当当网 2004-2017, All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<!-- /.container -->
+
+<!-- jQuery -->
+<script src="/static/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/static/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

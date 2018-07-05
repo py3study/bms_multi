@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    <title>管理出版社</title>
+
+{% endblock title %}
+
+{% block content %}
+    <h3>管理出版社</h3>
+    <table class="table table-hover table-striped ">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>出版社</th>
+            <th>邮箱</th>
+            <th>地址</th>
+            <th>删除</th>
+            <th>编辑</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for publish in publish_list %}
+            <tr>
+                <td>{{ publish.id }}</td>
+                <td>{{ publish.name }}</td>
+                <td>{{ publish.email }}</td>
+                <td>{{ publish.addr }}</td>
+                <td>
+                    {#由于表关系是通过id关联的，所以参数必须是id#}
+                    <a href="/books/delete_publish/{{ publish.id }}">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" id="modelBtn">删除</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="/books/modify_publish/{{ publish.id }}">
+                        <button type="button" class="btn btn-success" data-toggle="modal">编辑</button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock content %}
+

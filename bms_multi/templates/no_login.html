@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" href="http://mishengqiang.com/sweetalert/css/sweetalert.css">
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://mishengqiang.com/sweetalert/js/sweetalert-dev.js"></script>
+<div></div>
+<script>
+    $(function () {
+        swal({
+            title: '请先登录',
+            text: "2秒后自动关闭。",
+            type: 'error',
+            timer: 2000,
+            showConfirmButton: false
+        }, function () {
+            window.location.href = "/login/";
+        });
+    })
+</script>
+
+</body>
+</html>
+<html>
+
+

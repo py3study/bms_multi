@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="/static/css/login.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+
+</head>
+<body class="login_bj">
+<script>
+    $(function () {
+
+        $("#sub").click(function () {
+            var user = $("input[name='user']").val();
+            var pwd = $("input[name='pwd1']").val();
+            var cpwd = $("input[name='pwd2']").val();
+            if (user.length==0){
+                alert("用户名不能为空!");
+                return false;
+            }
+            if (pwd.length==0){
+                alert("密码不能为空!");
+                return false;
+            }
+            if (pwd != cpwd) {
+                alert("两次密码不一致!");
+                $("input[name='pwd1']").val("");
+                $("input[name='pwd2']").val("");
+                return false;
+            }
+        });
+    });
+</script>
+<div class="zhuce_body">
+    <!--<div class="logo"><a href="#"><img src="images/logo.png" width="114" height="54" border="0"></a></div>-->
+    <div class="zhuce_kong">
+        <div class="zc">
+            <div class="bj_bai">
+                <h3>欢迎注册</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="user" class="kuang_txt phone" placeholder="用户名">
+                    <input type="text" name="pwd1" class="kuang_txt email" placeholder="密码">
+                    <input type="text" name="pwd2" class="kuang_txt possword" placeholder="确认密码">
+
+
+                    <!--<input name="" type="text" class="kuang_txt possword" placeholder="邀请码">-->
+                    <!--<input name="" type="text" class="kuang_txt yanzm" placeholder="验证码">-->
+                    <!--<div>-->
+                    <!--<div class="hui_kuang"><img src="images/zc_22.jpg" width="92" height="31"></div>-->
+                    <!--<div class="shuaxin"><a href="#"><img src="images/zc_25.jpg" width="13" height="14"></a></div>-->
+                    <!--</div>-->
+                    <div>
+                        <input name="" type="checkbox" value=""><span>已阅读并同意<a href="#" target="_blank"><span
+                            class="lan">《XXXXX使用协议》</span></a></span>
+                    </div>
+                    <input id="sub" type="submit" class="btn_zhuce" value="注册">
+
+                </form>
+            </div>
+            <div class="bj_right">
+                <p>使用以下账号直接登录</p>
+                <a href="#" class="zhuce_qq">QQ注册</a>
+                <a href="#" class="zhuce_wb">微博注册</a>
+                <a href="#" class="zhuce_wx">微信注册</a>
+                <p>已有账号？<a href="/login/">立即登录</a></p>
+
+            </div>
+        </div>
+        <P>Copyright &copy; 当当网 2004-2017, All Rights Reserved</P>
+    </div>
+
+</div>
+
+</body>
+</html>
