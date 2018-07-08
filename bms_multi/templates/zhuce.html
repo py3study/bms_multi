@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .error {
+            color: red;
+        }
+
+        .col-center-block {
+
+            position: absolute;
+            top: 50%;
+            left: 18%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+
+    </style>
+</head>
+<body>
+{% csrf_token %}
+<div class="container col-center-block">
+    <div class="row ">
+        <div class="col-md-6 col-md-offset-2">
+            <h3>添加用户</h3><br/>
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="">{{ field.label }}</label>
+                        {{ field }} <span class="error pull-right">{{ field.errors.0 }}</span>
+                        {% if field.label == "确认密码" %}
+                            <span class="error pull-right">{{ g_error|default_if_none:"" }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <br/>
+                <input type="button" class="btn btn-success btn-sm" id="sub" value="注册">
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#sub").click(function () {
+            var csrf = $("[name=csrfmiddlewaretoken]").val();  //csrf
+            var name = $("#id_name").val();  //用户名
+            var pwd = $("#id_pwd").val();  //密码
+            var r_pwd = $("#id_r_pwd").val();  //确认密码
+            $.ajax({
+                url: "/zhuce_ajax/",  //请求的url
+                type: "post", //默认get
+                data: {
+                    name: name,
+                    pwd: pwd,
+                    r_pwd: r_pwd,
+                    csrfmiddlewaretoken : csrf
+                },
+                success: function (data) {  //data接收响应体,必须要有
+                    var data = JSON.parse(data);  //反序列化数据
+                    {#console.log(data.state);#}
+                    {#console.log(data);  //打印响应体#}
+                    if (data.state){
+                        console.log("注册成功");
+                        alert("注册成功");window.location.href="/login/";
+                    }
+                    else {
+                        console.log("注册失败");
+                        if (data.name){ //判断用户是否有错误信息
+                            $("#id_name").next().text(data.name)  //修改span标签的文本
+                        }else {
+                            $("#id_name").next().text("")  //验证通过后，清空文件
+                        }
+                        if(data.pwd){
+                            $("#id_pwd").next().text(data.pwd)
+                        }else {
+                            $("#id_pwd").next().text("")
+                        }
+                        if(data.r_pwd){
+                            $("#id_r_pwd").next().text(data.r_pwd)
+                        }else {
+                            $("#id_r_pwd").next().text("")
+                        }
+
+                    }
+                }
+            })
+
+
+        })
+
+    })
+</script>
+
+</body>
+</html>

@@ -19,28 +19,33 @@ from django.urls import path,re_path
 from book import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #前端部分####################
     path('', views.index),
     path('index/', views.index),
     path('login/', views.login),
     path('logout/', views.logout),
     path('reg/', views.reg),
-
+    path('zhuce/', views.zhuce),
+    path('zhuce_ajax/', views.zhuce_ajax),
+    # path('test/', views.test),
+    #后端部分###################
+    #查看内容
     path('books/', views.books),
     path('books/see_publish/', views.see_publish),
     path('books/see_author/', views.see_author),
-
+    #添加内容
     path('books/add_book/', views.add_book),
     path('books/add_publish/', views.add_publish),
     path('books/add_author/', views.add_author),
-
+    #管理内容
     path('books/manage_book/', views.manage_book),
     path('books/manage_publish/', views.manage_publish),
     path('books/manage_author/', views.manage_author),
-
+    #删除内容
     re_path('books/delete_book/(?P<id>\d+)', views.delete_book),
     re_path('books/delete_publish/(?P<id>\d+)', views.delete_publish),
     re_path('books/delete_author/(?P<id>\d+)', views.delete_author),
-
+    #修改内容
     re_path('books/modify_book/(?P<id>\d+)', views.modify_book),
     re_path('books/modify_publish/(?P<id>\d+)', views.modify_publish),
     re_path('books/modify_author/(?P<id>\d+)', views.modify_author),

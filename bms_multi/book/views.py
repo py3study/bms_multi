@@ -3,8 +3,79 @@ from django.shortcuts import render, HttpResponse,redirect
 from book.models import Book, Publish, Author, AuthorDetail,User
 import json
 import datetime
-
+from book.form import UserForm
 # Create your views here.
+
+def zhuce(request):
+    if request.method == "POST":
+        # 将post数据传给UserForm
+        form = UserForm(request.POST)
+        # print(request.POST)
+        # if form.is_valid():  # 验证数据
+        #     print("###success###")
+        #     print(form.cleaned_data)  # 所有干净的字段以及对应的值
+        #     # ErrorDict : {"校验错误的字段":["错误信息",]}
+        #     print(form.errors)
+        #     print(type(form.errors))  # 打印
+        #
+        #     name = request.POST.get("name")
+        #     pwd = request.POST.get("pwd")
+        #     last_time = datetime.datetime.now()
+        #     ret = User.objects.create(name=name,pwd=pwd,last_time=last_time)
+        #     if ret:
+        #         return HttpResponse("添加成功")
+        #     else:
+        #         return HttpResponse("添加失败")
+        # else:
+        #     print("###fail###")
+        #     # print(form.cleaned_data)
+        #     print(form.errors)
+        #     # # 获取email错误信息,返回一个错误列表,可以切片
+        #     # print(form.errors.get("email"))
+        #     # # 获取第一个错误信息
+        #     # print(form.errors.get("email")[0])
+        #     g_error = form.errors.get("__all__")  # 接收全局钩子错误信息
+        #     if g_error:  # 判断有错误信息的情况下
+        #         g_error = g_error[0]  # 取第一个错误信息
+        #
+        #     # 将form和g_error变量传给adduser.html
+        #     return render(request, "zhuce.html", {"form": form, "g_error": g_error})
+
+    else:  # 默认是get请求(地址栏输入访问时)
+        form = UserForm()  # 没有表单数据的form
+    return render(request, "zhuce.html",{"form": form})
+
+def zhuce_ajax(request):
+    if request.method == "POST": # 判断POST请求
+        print(request.POST)
+        form = UserForm(request.POST)  #
+        result = {"state": False,"name":"","pwd":"","r_pwd":""}
+        if form.is_valid():
+            name = request.POST.get("name")
+            pwd = request.POST.get("pwd")
+            last_time = datetime.datetime.now()
+            ret = User.objects.create(name=name, pwd=pwd, last_time=last_time)
+            if ret:
+                result["state"] = True
+            return HttpResponse(json.dumps(result,ensure_ascii=False))
+        else:
+            print(form.errors)
+            if form.errors:  # 判断有错误信息的情况下
+                if form.errors.get("name"):
+                    result["name"] = form.errors.get("name")[0]
+                if form.errors.get("pwd"):
+                    result["pwd"] = form.errors.get("pwd")[0]
+                if form.errors.get("r_pwd"):
+                    result["r_pwd"] = form.errors.get("r_pwd")[0]
+
+                g_error = form.errors.get("__all__")  # 接收全局钩子错误信息
+                if g_error:  # 判断有错误信息的情况下
+                    g_error = g_error[0]  # 取第一个错误信息
+                    result["r_pwd"] = g_error
+
+                return HttpResponse(json.dumps(result,ensure_ascii=False))
+
+
 #装饰器，用来判断用户是否登录
 def required_login(func):
     def inner(*args,**kwargs):
@@ -67,6 +138,8 @@ def reg(request):
 
     return render(request,"reg.html")
 
+
+
 @required_login
 def books(request):  # 首页
     print(111)
@@ -107,9 +180,13 @@ def add_book(request):  # 添加书籍
         # print(request.POST)
         title = request.POST.get("title")
         the_book = Book.objects.filter(title=title).exists()
+        hint = {"data":None,"msg":None}
         if the_book:
             hint = '<script>alert("书籍已存在！不能重复添加");window.location.href="/books/add_book/"</script>'
             return HttpResponse(hint)  # js跳转到添加页面
+            # hint["data"] = False
+            # hint["msg"] = "书籍已存在！不能重复添加"
+
         else:
             price = request.POST.get("price")
             pub_date = request.POST.get("pub_date")
