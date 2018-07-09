@@ -34,6 +34,7 @@ urlpatterns = [
     path('books/see_publish/', views.see_publish),
     path('books/see_author/', views.see_author),
     #添加内容
+    path('books/book_exists/', views.book_exists),
     path('books/add_book/', views.add_book),
     path('books/add_publish/', views.add_publish),
     path('books/add_author/', views.add_author),

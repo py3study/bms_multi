@@ -13,19 +13,19 @@
         <div class="form-group">
             <label for="">书籍名称</label>
             {#required表示内容不能为空#}
-            <input type="text" name="title" class="form-control" required>
+            <input type="text" id="title" name="title" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="">价格</label>
-            <input type="text" name="price" class="form-control" required>
+            <input type="text" id="price" name="price" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="">出版日期</label>
-            <input type="date" name="pub_date" class="form-control" required>
+            <input type="date" id="pub_date" name="pub_date" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="">出版社</label>
-            <select name="publish_id" id="" class="form-control">
+            <select name="publish_id" id="publish_id" class="form-control">
                 {#使用for循环遍历所有出版社#}
                 {% for p in publish_list %}
                     {#由于表关系是通过id关联的，所以value值必须是id#}
@@ -36,11 +36,11 @@
         </div>
         <div class="form-group">
             <label for="">作者</label>
-            <ul class="list-group">
+            <ul class="list-group" id="author_list">
                 {#使用for循环遍历所有作者#}
                 {% for author in author_list %}
                     <li class="list-group-item">
-                        <div class="checkbox checkbox-success ">
+                        <div class="checkbox checkbox-success">
                             {#由于表关系是通过id关联的，所以value值必须是id#}
                             <input class="styled" type="checkbox" name="author_id" value="{{ author.id }}">
                             <label class="checkbox-inline">
@@ -52,8 +52,78 @@
             </ul>
 
         </div>
-        <input type="submit" class="btn btn-success pull-right" value="添加">
+        <input type="button" id="sub" class="btn btn-success pull-right" value="添加">
     </form>
+    <script>
+        $("#title").blur(function () {
+            var title = $(this).val();
+            var csrf = $("[name=csrfmiddlewaretoken]").val();
+            $.ajax({
+                url: "/books/book_exists/",
+                type: "post",
+                data: {
+                    'title': title,
+                    csrfmiddlewaretoken: csrf,
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);  //反序列化数据
+                    console.log(data);
+                    if (!data.state) { //判断json的状态
+                        sweetAlert("错误啦！", data.msg, "error");
+                    }
+                }
 
+            });
+            $("#sub").click(function () {
+                var title = $("#title").val();
+                var price = $("#price").val();
+                var pub_date = $("#pub_date").val();
+                var publish_id = $("#publish_id").val();
+                var arr = new Array();
+
+                $('input[type=checkbox]:checked').each(function (i) {
+                    arr[i] = $(this).val();
+                });
+                var author_arr = JSON.stringify({  //json序列化数据
+                    author_id: arr,
+                });
+                {#var vals = arr.join(",");#}
+                {#console.log(arr);#}
+                {#console.log(title,price,pub_date,publish_id,arr);#}
+
+                $.ajax({
+                    url: "/books/add_book/",
+                    type: "post",
+                    data: {
+                        'title': title,
+                        'price': price,
+                        'pub_date': pub_date,
+                        'publish_id': publish_id,
+                        'author_id': author_arr,  //发送json
+                        csrfmiddlewaretoken: csrf,
+                    },
+                    success: function (data) {
+                        var data = JSON.parse(data);  //反序列化数据
+                        {#console.log(data);#}
+                        if (data.state) { //判断json的状态
+                            swal({
+                                title: '添加成功',
+                                type: 'success',  //展示成功的图片
+                                timer: 500,  //延时500毫秒
+                                showConfirmButton: false  //关闭确认框
+                            }, function () {
+                                window.location.href = "/books/";  //跳转后台首页
+                            });
+                        } else {
+                            sweetAlert("添加失败！", data.msg, "error");
+                        }
+                    }
+
+                });
+
+            });
+
+        })
+    </script>
 {% endblock content %}
 

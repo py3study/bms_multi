@@ -146,7 +146,6 @@ def reg(request):
 
 @required_login
 def books(request):  # 首页
-    print(111)
     ret = Book.objects.all().exists()  # 判断表是否有记录
     if ret:
         book_list = Book.objects.all()  # 查询表的所有记录
@@ -179,31 +178,52 @@ def see_author(request):  # 查看作者
         return HttpResponse(hint)  # js跳转到添加页面
 
 @required_login
-def add_book(request):  # 添加书籍
+def book_exists(request):  # 添加书籍
     if request.method == "POST":
         # print(request.POST)
         title = request.POST.get("title")
         the_book = Book.objects.filter(title=title).exists()
-        hint = {"data":None,"msg":None}
+        result = {"state":False,"msg":""}
         if the_book:
-            hint = '<script>alert("书籍已存在！不能重复添加");window.location.href="/books/add_book/"</script>'
-            return HttpResponse(hint)  # js跳转到添加页面
-            # hint["data"] = False
-            # hint["msg"] = "书籍已存在！不能重复添加"
-
+            result["msg"] = "书籍已存在！不能重复添加"
+            return HttpResponse(json.dumps(result, ensure_ascii=False))
         else:
-            price = request.POST.get("price")
-            pub_date = request.POST.get("pub_date")
-            publish_id = request.POST.get("publish_id")
-            author_id = request.POST.getlist("author_id")  # 返回列表
-            print(title, price, pub_date, publish_id, author_id)
+            result["state"] = True
+            return HttpResponse(json.dumps(result, ensure_ascii=False))
+
+@required_login
+def add_book(request):  # 添加书籍
+    if request.method == "POST":
+        title = request.POST.get("title")
+        price = request.POST.get("price")
+        pub_date = request.POST.get("pub_date")
+        publish_id = request.POST.get("publish_id")
+        author_id = request.POST.get("author_id")  # 返回json
+
+        print(title, price, pub_date, publish_id,author_id)
+        author_arr = json.loads(author_id);
+        print(author_arr,type(author_arr['author_id']))
+
+        result = {"state": False, "msg": ""}
+
+        the_book = Book.objects.filter(title=title).exists()
+        if the_book:
+            result["msg"] = "书籍已存在！不能重复添加"
+            return HttpResponse(json.dumps(result, ensure_ascii=False))
+        else:
             # 先插入书籍
             book = Book.objects.create(title=title, price=price, pub_date=pub_date, publish_id=publish_id)
             # 再插入作者
-            book.authors.add(*author_id)
+            book.authors.add(*author_arr['author_id'])
 
-            hint = '<script>alert("添加成功");window.location.href="/books/"</script>'
-            return HttpResponse(hint)  # js跳转到首页
+            # hint = '<script>alert("添加成功");window.location.href="/books/"</script>'
+            # return HttpResponse(hint)  # js跳转到首页
+            if book.id:
+                result["state"] = True
+            else:
+                result["msg"] = "插入记录失败!"
+
+        return HttpResponse(json.dumps(result, ensure_ascii=False))
 
     # 读取所有出版社，过滤出id和name
     publish_list = Publish.objects.all().values("id", "name")
