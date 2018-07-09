@@ -103,15 +103,19 @@ def login(request):
         name = request.POST.get("user")
         pwd = request.POST.get("pwd")
         user_list = User.objects.filter(name=name,pwd=pwd)
+        response = {"state":False}
         if user_list:
             user_obj = user_list.first()
-            ret = redirect("/books/")
+            # ret = redirect("/books/")
             request.session['is_login'] = True
             request.session['user'] = name
             request.session['last_time'] = str(user_obj.last_time)
             user_obj.last_time = datetime.datetime.now()
             user_obj.save()
-            return ret
+
+            response["state"] = True
+
+        return HttpResponse(json.dumps(response))
             
     return render(request,"login.html")
 
