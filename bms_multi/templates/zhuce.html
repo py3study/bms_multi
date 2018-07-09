@@ -48,8 +48,82 @@
     </div>
 </div>
 <script src="/static/js/jquery.min.js"></script>
+{#sweetalert插件#}
+<script src="http://mishengqiang.com/sweetalert/js/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="http://mishengqiang.com/sweetalert/css/sweetalert.css">
 <script>
     $(function () {
+        $("#id_name").blur(function () {
+            var csrf = $("[name=csrfmiddlewaretoken]").val();  //csrf
+            var name = $("#id_name").val();  //用户名
+            $.ajax({
+                url: "/zhuce_ajax/",
+                type: "post",
+                data: {
+                    'name': name,
+                    csrfmiddlewaretoken: csrf,
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);  //反序列化数据
+                    console.log(data);
+                    if (data.name) { //判断用户是否有错误信息
+                        $("#id_name").next().text(data.name)  //修改span标签的文本
+                    } else {
+                        $("#id_name").next().text("")  //验证通过后，清空文件
+                    }
+                }
+
+            });
+        });
+        $("#id_pwd").blur(function () {
+            var csrf = $("[name=csrfmiddlewaretoken]").val();  //csrf
+            var pwd = $("#id_pwd").val();  //密码
+            $.ajax({
+                url: "/zhuce_ajax/",
+                type: "post",
+                data: {
+                    'name': name,
+                    'pwd': pwd,
+                    csrfmiddlewaretoken: csrf,
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);  //反序列化数据
+                    console.log(data);
+                    if (data.pwd) { //判断密码是否有错误信息
+                        $("#id_pwd").next().text(data.pwd)  //修改span标签的文本
+                    } else {
+                        $("#id_pwd").next().text("")  //验证通过后，清空文件
+                    }
+                }
+
+            });
+        });
+        $("#id_r_pwd").blur(function () {
+            var csrf = $("[name=csrfmiddlewaretoken]").val();  //csrf
+            var pwd = $("#id_pwd").val();  //密码
+            var r_pwd = $("#id_r_pwd").val();  //确认密码
+            $.ajax({
+                url: "/zhuce_ajax/",
+                type: "post",
+                data: {
+                    'name': name,
+                    'pwd': pwd,
+                    'r_pwd': r_pwd,
+                    csrfmiddlewaretoken: csrf,
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);  //反序列化数据
+                    console.log(data);
+                    if (data.r_pwd) { //判断确认密码是否有错误信息
+                        $("#id_r_pwd").next().text(data.r_pwd)  //修改span标签的文本
+                    } else {
+                        $("#id_r_pwd").next().text("")  //验证通过后，清空文件
+                    }
+                }
+
+            });
+        });
+
         $("#sub").click(function () {
             var csrf = $("[name=csrfmiddlewaretoken]").val();  //csrf
             var name = $("#id_name").val();  //用户名
@@ -62,31 +136,38 @@
                     name: name,
                     pwd: pwd,
                     r_pwd: r_pwd,
-                    csrfmiddlewaretoken : csrf
+                    csrfmiddlewaretoken: csrf
                 },
                 success: function (data) {  //data接收响应体,必须要有
                     var data = JSON.parse(data);  //反序列化数据
                     {#console.log(data.state);#}
                     {#console.log(data);  //打印响应体#}
-                    if (data.state){
+                    if (data.state) {
                         console.log("注册成功");
-                        alert("注册成功");window.location.href="/login/";
+                        swal({
+                            title: '注册成功',
+                            type: 'success',  //展示成功的图片
+                            timer: 500,  //延时500毫秒
+                            showConfirmButton: false  //关闭确认框
+                        }, function () {
+                            window.location.href = "/login/";  //跳转后台首页
+                        });
                     }
                     else {
                         console.log("注册失败");
-                        if (data.name){ //判断用户是否有错误信息
+                        if (data.name) { //判断用户是否有错误信息
                             $("#id_name").next().text(data.name)  //修改span标签的文本
-                        }else {
+                        } else {
                             $("#id_name").next().text("")  //验证通过后，清空文件
                         }
-                        if(data.pwd){
+                        if (data.pwd) {
                             $("#id_pwd").next().text(data.pwd)
-                        }else {
+                        } else {
                             $("#id_pwd").next().text("")
                         }
-                        if(data.r_pwd){
+                        if (data.r_pwd) {
                             $("#id_r_pwd").next().text(data.r_pwd)
-                        }else {
+                        } else {
                             $("#id_r_pwd").next().text("")
                         }
 
